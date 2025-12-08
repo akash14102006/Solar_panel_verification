@@ -70,53 +70,7 @@ Solar_panel_verification/
 ├── README.md
 └── test.py
 
-📌 4. How the Pipeline Works
-STEP 1 — Fetch Image
-python
-Copy code
-from pipeline.fetch import fetch_image
-img_path = fetch_image(lat, lon, zoom=21, sample_id=1)
-STEP 2 — Detect Solar Panels
-python
-Copy code
-from pipeline.detect import classify
-has_solar, conf, bbox = classify(img_path)
-STEP 3 — Segmentation
-python
-Copy code
-from pipeline.segment import segment
-mask, area = segment(img_path)
-STEP 4 — QC Verification
-python
-Copy code
-from pipeline.quantify import qc_status
-qc = qc_status(has_solar, conf)
-STEP 5 — Save Audit Outputs
-python
-Copy code
-from pipeline.store import save_json, save_overlay
-save_json(...)
-save_overlay(...)
-STEP 6 — Full Run
-python
-Copy code
-from pipeline.pipeline import run
-run(1, 12.9716, 77.5946)
-📌 5. Example Output (JSON)
-json
-Copy code
-{
-  "sample_id": 2,
-  "lat": 28.5450,
-  "lon": 77.1926,
-  "has_solar": true,
-  "confidence": 0.78,
-  "pv_area_sqm_est": 6.2,
-  "qc_status": "VERIFIABLE",
-  "bbox_or_mask": [310, 100, 360, 150],
-  "image_source": "Google Static Maps"
-}
-📌 6. Tech Stack
+📌 4. Tech Stack
 Component	Technology
 AI Models	YOLOv8 Detection + Segmentation
 Framework	Ultralytics, PyTorch
@@ -125,7 +79,7 @@ Image Fetching	Google Static Maps API
 Storage Format	JSON, PNG Overlays
 Training	Google Colab (T4 GPU)
 
-📌 7. Models Used
+📌 5. Models Used
 Model 1 — best_detect.pt
 Task: Solar panel presence detection
 
@@ -140,7 +94,7 @@ Output: Mask + panel area
 
 Metric: mAP50 ≈ 0.78
 
-📌 8. Limitations
+📌 6. Limitations
 Tree cover may hide panels
 
 Very old / low resolution imagery may reduce accuracy
@@ -149,7 +103,7 @@ Water tanks & metal roofs may cause false positives
 
 Not suitable for real-time drone inspections
 
-📌 9. Future Enhancements
+📌 7. Future Enhancements
 Add transformer-based detection (SAM / SegFormer)
 
 Build mobile or web dashboard for DISCOMs
@@ -158,7 +112,7 @@ Integrate historical imagery for trend analysis
 
 Automatic rooftop boundary detection
 
-📌 10. Team
+📌 8. Team
 Team Name: Health Coder 
 Challenge: EcoInnovators 2026 – Rooftop Solar Verification
 Members: Akash M , Mohan Kumar

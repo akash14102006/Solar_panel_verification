@@ -4,8 +4,12 @@
   <img src="assets/banner.png" width="600" alt="Project Header">
 </p>
 
+<p align="center">
+  <strong>Live Application:</strong> <a href="https://solarpanelverification.streamlit.app/">solarpanelverification.streamlit.app</a>
+</p>
+
 ## Strategic Overview
-SolarSight AI is an enterprise-grade automated verification system engineered to facilitate the validation of rooftop solar photovoltaic (PV) installations. Developed at the intersection of geospatial intelligence and deep learning, this platform provides a robust framework for monitoring the PM Surya Ghar: Muft Bijli Yojana initiative with unprecedented precision and scale.
+SolarSight AI is an enterprise-grade automated verification system engineered to facilitate the validation of rooftop solar photovoltaic (PV) installations. [Access the live dashboard here](https://solarpanelverification.streamlit.app/). Developed at the intersection of geospatial intelligence and deep learning, this platform provides a robust framework for monitoring the PM Surya Ghar: Muft Bijli Yojana initiative with unprecedented precision and scale.
 
 ---
 

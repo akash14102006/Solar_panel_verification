@@ -1,6 +1,7 @@
-ultralytics
-opencv-python
-numpy
-requests
-torch
 streamlit
+ultralytics
+opencv-python-headless
+numpy
+torch
+requests
+Pillow

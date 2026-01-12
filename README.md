@@ -1,6 +1,6 @@
 # SolarSight AI: Intelligent Rooftop Solar Verification
 
-![Project Header](assets/banner.png)
+<img src="assets/banner.png" width="450" align="right" />
 
 ## Strategic Overview
 SolarSight AI is an enterprise-grade automated verification system engineered to facilitate the validation of rooftop solar photovoltaic (PV) installations. Developed at the intersection of geospatial intelligence and deep learning, this platform provides a robust framework for monitoring the PM Surya Ghar: Muft Bijli Yojana initiative with unprecedented precision and scale.
@@ -13,7 +13,7 @@ SolarSight AI is an enterprise-grade automated verification system engineered to
 Integration with high-fidelity satellite instrumentation allows for the automated acquisition of localized environmental imagery based on precise coordinate metadata.
 
 ### Advanced Computational Vision
-![Analysis Dashboard](assets/analysis_dashboard.png)
+<img src="assets/analysis_dashboard.png" width="350" align="right" />
 
 The core architecture utilizes a dual-stage analytical process:
 *   **Object Localization**: Leveraging YOLOv8 for rapid identification and bounding of solar arrays.

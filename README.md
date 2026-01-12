@@ -1,122 +1,97 @@
-# Solar_panel_verification
+# SolarSight AI: Intelligent Rooftop Solar Verification
 
-📌 1. Project Overview
-Solar panel verification an end-to-end automated verification pipeline designed to validate rooftop solar photovoltaic (PV) installations under the PM Surya Ghar: Muft Bijli Yojana.
+![SolarSight AI Banner](assets/banner.png)
 
-Using satellite imagery + YOLOv8 AI models, the system:
+## 🌟 Overview
+**SolarSight AI** is a state-of-the-art automated verification pipeline designed to validate rooftop solar photovoltaic (PV) installations. Developed for the **EcoInnovators 2026** initiative, this platform leverages high-resolution satellite imagery and advanced deep learning models to ensure the integrity of solar deployment under the *PM Surya Ghar: Muft Bijli Yojana*.
 
-Detects whether a solar panel exists at a given location
+By automating the audit process, SolarSight AI eliminates the inefficiencies of manual inspections, providing a scalable, transparent, and highly accurate solution for governance and subsidy monitoring.
 
-Generates polygon masks (for segmentation)
+---
 
-Estimates the installed rooftop solar area
+## 🚀 Key Capabilities
 
-Produces audit-ready JSON + PNG overlays
+### 📡 Automated Intelligence
+Our system automatically interfaces with high-definition satellite providers to fetch localized imagery based on GPS coordinates.
 
-Assigns QC status (VERIFIABLE / NOT_VERIFIABLE)
+### 🔍 Dual-Stage AI Diagnostics
+- **Detection (YOLOv8):** Instant classification and localization of solar arrays with confidence scoring.
+- **Segmentation (YOLOv8-Seg):** Precise pixel-level mapping of solar panels to calculate the exact installed area.
 
-Ensures transparency for large-scale subsidy monitoring
+### 📊 Audit-Ready Reporting
+Every verification run produces a comprehensive digital footprint:
+- **Visual Overlays:** High-contrast masks overlaid on satellite imagery for human review.
+- **Structured Data:** Detailed JSON outputs containing area metrics, confidence levels, and QC timestamps.
+- **Quality Assurance:** Automated "VERIFIABLE" vs "NOT VERIFIABLE" status based on image clarity and detection certainty.
 
-This reduces the need for manual inspection, enabling faster, cheaper, and scalable verification across India.
+---
 
-📌 2. Features
-✔ Automated Image Fetching
-Fetches high-resolution satellite images using Google Static Maps API.
+## 🛠 Technical Architecture
 
-✔ Solar Panel Detection (YOLOv8-Detection)
-YES/NO classification with bounding box & confidence score.
+| Component | Technology |
+|---|---|
+| **Core AI** | YOLOv8 (Detection & Segmentation) |
+| **Framework** | Ultralytics, PyTorch |
+| **Dashboard** | Streamlit (Python-based Web UI) |
+| **Image Engine** | Google Static Maps API |
+| **Logic Layer** | Python 3.10 |
 
-✔ Solar Panel Segmentation (YOLOv8-Segmentation)
-Generates polygon masks + area estimation in m².
+---
 
-✔ Quality Check System
-Rules-based QC to determine if the result is usable.
+## 📦 Project Structure
 
-✔ Audit-Ready Outputs
-Produces:
+```bash
+SolarSightAI/
+├── app.py                # Streamlit Web Dashboard
+├── pipeline/             # Core AI Pipeline Modules
+│   ├── fetch.py          # Satellite Image Extraction
+│   ├── detect.py         # AI Detection Logic
+│   ├── pipeline.py       # Orchestration Layer
+│   └── ...               # Supplementary Utilities
+├── trained_model/        # Production-grade Weights (.pt)
+├── assets/               # Branding & Documentation Images
+├── output/               # Generated Audit Artifacts
+└── requirements.txt      # Dependency Specification
+```
 
-/output/json/sample_id.json
+---
 
-/output/overlay/sample_id.png
+## 🚦 Getting Started
 
-✔ Generalizes Across Indian Roof Types
-Tin roofs, cement slabs, tiled houses, rural & urban structures.
+### 1. Prerequisites
+Ensure you have Python 3.10+ installed. You will also need a Google Maps API Key for satellite image fetching.
 
-📌 3. Repository Structure
-pgsql
-Copy code
-Solar_panel_verification/
-│
-├── pipeline/
-│   ├── pipeline.py
-│   ├── fetch.py
-│   ├── detect.py
-│   ├── segment.py
-│   ├── quantify.py
-│   ├── explain.py
-│   ├── store.py
-│
-├── trained_model/
-│   ├── best_detect.pt
-│   ├── best_segment.pt
-│   ├── model_card.pdf
-│
-├── output/
-│   ├── json/
-│   ├── overlay/
-│   ├── sample_input.png
-│
-├── requirements.txt
-├── README.md
-└── test.py
+### 2. Installation
+Clone the repository and install the required dependencies:
+```bash
+git clone https://github.com/akash14102006/Solar_panel_verification.git
+cd Solar_panel_verification
+pip install -r requirements.txt
+```
 
-📌 4. Tech Stack
-Component	Technology
-AI Models	YOLOv8 Detection + Segmentation
-Framework	Ultralytics, PyTorch
-Programming Language	Python 3.10
-Image Fetching	Google Static Maps API
-Storage Format	JSON, PNG Overlays
-Training	Google Colab (T4 GPU)
+### 3. Launch the Dashboard
+Run the interactive Streamlit application:
+```bash
+streamlit run app.py
+```
 
-📌 5. Models Used
-Model 1 — best_detect.pt
-Task: Solar panel presence detection
+---
 
-Output: Bounding box + confidence
+## 🔮 Future Roadmap (The "Gemini" Vision)
+We are currently exploring integrations with **Google Gemini** to:
+- Generate automated, natural-language audit reports for each installation.
+- Provide descriptive reasoning for "NOT VERIFIABLE" flags (e.g., "Tree coverage obstructing 40% of the array").
+- Implement visual question-answering (VQA) for edge-case diagnostics.
 
-Metric: F1 ≈ 0.82
+---
 
-Model 2 — best_segment.pt
-Task: Pixel-level solar segmentation
+## 👥 Meet the Team
+**Team:** Health Coder  
+**Challenge:** EcoInnovators 2026  
+**Lead Developers:** [Akash M](https://github.com/akash14102006), [Mohan Kumar]  
+**Contact:** 240769.it@rmkec.ac.in
 
-Output: Mask + panel area
+---
 
-Metric: mAP50 ≈ 0.78
-
-📌 6. Limitations
-Tree cover may hide panels
-
-Very old / low resolution imagery may reduce accuracy
-
-Water tanks & metal roofs may cause false positives
-
-Not suitable for real-time drone inspections
-
-📌 7. Future Enhancements
-Add transformer-based detection (SAM / SegFormer)
-
-Build mobile or web dashboard for DISCOMs
-
-Integrate historical imagery for trend analysis
-
-Automatic rooftop boundary detection
-
-📌 8. Team
-Team Name: Health Coder 
-Challenge: EcoInnovators 2026 – Rooftop Solar Verification
-Members: Akash M , Mohan Kumar
-Email: 240769.it@rmkec.ac.in
-
-📌 11. License
-This project is developed for EcoInnovators Ideathon 2026 and is intended for research & governance use only.
+## 📄 License
+This project is developed for the EcoInnovators Ideathon 2026. All rights reserved for research and governance applications.

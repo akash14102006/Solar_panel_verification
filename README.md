@@ -1,88 +1,89 @@
 # SolarSight AI: Intelligent Rooftop Solar Verification
 
-![SolarSight AI Banner](assets/banner.png)
+![Project Header](assets/banner.png)
 
-## Overview
-SolarSight AI is a state-of-the-art automated verification pipeline designed to validate rooftop solar photovoltaic (PV) installations. This platform leverages high-resolution satellite imagery and advanced deep learning models to ensure the integrity of solar deployment under the PM Surya Ghar: Muft Bijli Yojana.
-
-By automating the audit process, SolarSight AI eliminates the inefficiencies of manual inspections, providing a scalable, transparent, and highly accurate solution for governance and subsidy monitoring.
+## Strategic Overview
+SolarSight AI is an enterprise-grade automated verification system engineered to facilitate the validation of rooftop solar photovoltaic (PV) installations. Developed at the intersection of geospatial intelligence and deep learning, this platform provides a robust framework for monitoring the PM Surya Ghar: Muft Bijli Yojana initiative with unprecedented precision and scale.
 
 ---
 
-## Core Capabilities
+## System Capabilities
 
-### Satellite Intelligence
-Automated interface with high-definition satellite providers to fetch localized imagery based on precise GPS coordinates.
+### Geospatial Intelligence
+Integration with high-fidelity satellite instrumentation allows for the automated acquisition of localized environmental imagery based on precise coordinate metadata.
 
-### Dual-Stage AI Diagnostics
-*   **Object Detection:** Instant classification and localization of solar arrays using YOLOv8 with real-time confidence scoring.
-*   **Geospatial Segmentation:** Pixel-level mapping to calculate exact installed area and panel orientation.
+### Advanced Computational Vision
+![Analysis Dashboard](assets/analysis_dashboard.png)
 
-### Audit-Ready Reporting
-Every verification run produces a comprehensive digital footprint:
-*   **Visual Overlays:** High-contrast masks overlaid on satellite imagery for human review and validation.
-*   **Structured Data:** Structured JSON outputs containing area metrics, confidence levels, and QC timestamps.
-*   **Quality Assurance:** Automated validation status based on image clarity and detection certainty.
+The core architecture utilizes a dual-stage analytical process:
+*   **Object Localization**: Leveraging YOLOv8 for rapid identification and bounding of solar arrays.
+*   **Geometric Segmentation**: Pixel-level mask generation for accurate surface area quantification and spatial orientation analysis.
 
----
-
-## Technical Architecture
-
-| Component | specification |
-|---|---|
-| AI Engine | YOLOv8 (Detection & Segmentation) |
-| Framework | Ultralytics, PyTorch |
-| Web Interface | Streamlit |
-| Image Sourcing | Google Static Maps API |
-| Environment | Python 3.10 |
+### Compliance and Quality Control
+Each verification instance undergoes rigorous automated auditing to ensure data integrity:
+*   **High-Resolution Overlays**: Semi-transparent diagnostic masks for manual audit verification.
+*   **Structured Schema**: JSON-compliant data exports encompassing precise area metrics and confidence intervals.
+*   **Automated Validation**: Rule-based QC engine determining verification status based on image signal-to-noise ratio and detection certainty.
 
 ---
 
-## Project Structure
+## Technical Infrastructure
 
-```bash
+| Layer | Specification |
+|:--- |:--- |
+| **Analytical Engine** | Ultralytics YOLOv8 (Detect & Segment) |
+| **Runtime Environment** | Python 3.10 |
+| **Interface Layer** | Streamlit Web Framework |
+| **Imagery Provider** | Google Cloud Geospatial APIs |
+| **Deep Learning Library** | PyTorch |
+
+---
+
+## Directory Architecture
+
+```text
 SolarSightAI/
-├── app.py                # Streamlit Web Dashboard
-├── pipeline/             # Core AI Pipeline Modules
-│   ├── fetch.py          # Satellite Image Extraction
-│   ├── detect.py         # AI Detection Logic
-│   ├── pipeline.py       # Orchestration Layer
-├── trained_model/        # Production-grade Weights (.pt)
-├── assets/               # Project Assets & Branding
-├── output/               # Generated Audit Artifacts
-└── requirements.txt      # Dependency Specification
+├── app.py                # Enterprise Web Dashboard
+├── pipeline/             # Core Logic Framework
+│   ├── fetch.py          # Geospatial Imagery Ingestion
+│   ├── detect.py         # Neural Network Inference
+│   ├── pipeline.py       # Orchestration Controller
+├── trained_model/        # Model Weights & PDF Documentation
+├── assets/               # Branding and Visual Assets
+├── output/               # Structured Audit Artifacts
+└── requirements.txt      # Environment Configuration
 ```
 
 ---
 
-## Deployment
+## Implementation Guide
 
-### Dependencies
-Ensure the system environment meets the requirements specified in `requirements.txt`.
+### Environmental Setup
+Verify that the system environment complies with the specifications detailed in `requirements.txt`.
 
-### Application Launch
-The interactive dashboard can be initiated via the command line:
+### Launch Protocol
+The centralized administration dashboard is initiated via:
 ```bash
 streamlit run app.py
 ```
 
 ---
 
-## Future Development
-Our current research focuses on integrating LLM capabilities to:
-*   Generate natural-language audit reports for each installation.
-*   Provide descriptive reasoning for quality control flags (e.g., "Obstruction detected: Tree coverage exceeds 30%").
-*   Implement visual question-answering for complex edge-case diagnostics.
+## Future Roadmap
+Current engineering efforts are focused on the integration of Large Language Models (LLM) to deliver:
+*   **Automated Narrative Audits**: Generating comprehensive natural-language reports for infrastructure assessment.
+*   **Diagnostic Reasoning**: Providing contextual explanations for quality control exceptions (e.g., "Obstruction detected: Urban foliage density exceeds 35%").
+*   **Geospatial VQA**: Implementing Visual Question Answering for complex regulatory compliance checks.
 
 ---
 
-## Development Team
-**Organization:** Health Coder  
-**Program:** EcoInnovators 2026 – Rooftop Solar Verification  
-**Lead Developers:** Akash M, Mohan Kumar  
-**Inquiries:** 240769.it@rmkec.ac.in
+## Project Governance
+**Team Name**: Health Coder  
+**Program**: EcoInnovators 2026 – Rooftop Solar Verification  
+**Principal Developers**: Akash M, Mohan Kumar  
+**Technical Correspondence**: 240769.it@rmkec.ac.in
 
 ---
 
-## Legal
-This project is developed for the EcoInnovators Ideathon 2026. Data and methodology are intended for research and governance applications.
+## Intellectual Property
+This project is proprietary to Team Health Coder for the EcoInnovators 2026 initiative. The methodology and implementation are designed for research and government-scale urban planning applications.

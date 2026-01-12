@@ -96,3 +96,10 @@ Current engineering efforts are focused on the integration of Large Language Mod
 
 ## Intellectual Property
 This project is proprietary to Team Health Coder for the EcoInnovators 2026 initiative. The methodology and implementation are designed for research and government-scale urban planning applications.
+
+---
+
+## Demo Video
+
+- [Solar panel verification demo](https://www.youtube.com/watch?v=PwsAHg7yABE)
+

@@ -1,3 +1,17 @@
+# Ignore development container configuration
+.devcontainer/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+
+# Virtualenv
+venv/
+env/
+
+# Output and model artifacts
+output/
+trained_model/
 .idea/
 __pycache__/
 *.py[cod]

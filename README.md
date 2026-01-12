@@ -1,6 +1,8 @@
 # SolarSight AI: Intelligent Rooftop Solar Verification
 
-<img src="assets/banner.png" width="450" align="right" />
+<p align="center">
+  <img src="assets/banner.png" width="600" alt="Project Header">
+</p>
 
 ## Strategic Overview
 SolarSight AI is an enterprise-grade automated verification system engineered to facilitate the validation of rooftop solar photovoltaic (PV) installations. Developed at the intersection of geospatial intelligence and deep learning, this platform provides a robust framework for monitoring the PM Surya Ghar: Muft Bijli Yojana initiative with unprecedented precision and scale.
@@ -13,11 +15,14 @@ SolarSight AI is an enterprise-grade automated verification system engineered to
 Integration with high-fidelity satellite instrumentation allows for the automated acquisition of localized environmental imagery based on precise coordinate metadata.
 
 ### Advanced Computational Vision
-<img src="assets/analysis_dashboard.png" width="350" align="right" />
+<img src="assets/analysis_dashboard.png" width="350" align="right" style="margin-left: 20px;">
 
 The core architecture utilizes a dual-stage analytical process:
 *   **Object Localization**: Leveraging YOLOv8 for rapid identification and bounding of solar arrays.
 *   **Geometric Segmentation**: Pixel-level mask generation for accurate surface area quantification and spatial orientation analysis.
+*   **Automated Diagnostics**: Real-time evaluation of installation validity through neural inference.
+
+<br clear="right"/>
 
 ### Compliance and Quality Control
 Each verification instance undergoes rigorous automated auditing to ensure data integrity:
@@ -72,7 +77,7 @@ streamlit run app.py
 ## Future Roadmap
 Current engineering efforts are focused on the integration of Large Language Models (LLM) to deliver:
 *   **Automated Narrative Audits**: Generating comprehensive natural-language reports for infrastructure assessment.
-*   **Diagnostic Reasoning**: Providing contextual explanations for quality control exceptions (e.g., "Obstruction detected: Urban foliage density exceeds 35%").
+*   **Diagnostic Reasoning**: Providing contextual explanations for quality control exceptions.
 *   **Geospatial VQA**: Implementing Visual Question Answering for complex regulatory compliance checks.
 
 ---

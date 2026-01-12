@@ -3,7 +3,7 @@ import requests
 from datetime import date
 
 API_KEY = "AIzaSyBWaOJbGUY8pX0VolJmC7qthqmHa-voIV0"   # CHANGE THIS
-ZOOM = 20
+ZOOM = 19
 SCALE = 2
 IMG_SIZE = 640
 

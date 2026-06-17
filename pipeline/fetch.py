@@ -19,7 +19,7 @@ if not API_KEY and st is not None:
     except Exception:
         pass
 if not API_KEY:
-    API_KEY = "Google-Map-API"
+    API_KEY = "AIzaSyBWaOJbGUY8pX0VolJmC7qthqmHa-voIV0"
 
 ZOOM = 20
 SCALE = 2

@@ -79,7 +79,7 @@ with right_col:
                 st.error(f"Error during verification: {e}")
                 logger.error(f"Pipeline error: {e}", exc_info=True)
 
-        img_path = BASE_DIR / "output" / f"{sample_id}_input.png"
+        img_path = BASE_DIR / "output" / f"{sample_id}_input.jpg"
         overlay_path = BASE_DIR / "output" / "overlay" / f"{sample_id}.png"
         json_path = BASE_DIR / "output" / "json" / f"{sample_id}.json"
 

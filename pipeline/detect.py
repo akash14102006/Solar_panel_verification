@@ -1,5 +1,12 @@
 import numpy as np
 import os
+try:
+    import cv2
+    print("OpenCV loaded:", cv2.__version__)
+except Exception as e:
+    print("CV2 ERROR:", repr(e))
+    raise
+
 from ultralytics import YOLO
 
 DETECT_MODEL_PATH = os.path.join("trained_model", "best_detect.pt")
@@ -35,12 +42,3 @@ def run_detect(image_path: str):
         bbox_list = [xyxy]
 
     return True, conf, bbox_list
-
-try:
-    import cv2
-    print("OpenCV loaded:", cv2.__version__)
-except Exception as e:
-    print("CV2 ERROR:", str(e))
-    raise
-
-from ultralytics import YOLO

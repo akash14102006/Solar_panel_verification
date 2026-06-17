@@ -19,7 +19,7 @@ if not API_KEY and st is not None:
     except Exception:
         pass
 if not API_KEY:
-    API_KEY = "AIzaSyBWaOJbGUY8pX0VolJmC7qthqmHa-voIV0"
+    API_KEY = ""
 
 ZOOM = 20
 SCALE = 2
@@ -35,9 +35,7 @@ def fetch_image(lat: float, lon: float, sample_id: int):
     Saves → output/{sample_id}_input.png
     """
     url = (
-        "https://maps.googleapis.com/maps/api/staticmap?"
-        f"center={lat},{lon}&zoom={ZOOM}&size={IMG_SIZE}x{IMG_SIZE}&scale={SCALE}"
-        f"&maptype=satellite&key={API_KEY}"
+        "url = f"https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export?bbox={lon-0.005},{lat-0.005},{lon+0.005},{lat+0.005}&bboxSR=4326&imageSR=4326&size=640,640&format=png&f=image""
     )
 
     out_path = OUT_ROOT / f"{sample_id}_input.png"

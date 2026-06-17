@@ -2,7 +2,11 @@ import streamlit as st
 import json
 import os
 from pipeline.pipeline import run
+import cv2
+import numpy as np
 
+print("CV2:", cv2.__version__)
+print("NUMPY:", np.__version__)
 
 # -------------------------------------------------
 # PAGE CONFIG

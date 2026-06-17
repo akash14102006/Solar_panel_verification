@@ -2,9 +2,16 @@ import os
 import numpy as np
 import cv2
 from ultralytics import YOLO
+import streamlit as st
 
-SEGMENT_MODEL_PATH = os.path.join("trained_model", "best_segment.pt")
-segment_model = YOLO(SEGMENT_MODEL_PATH) if os.path.exists(SEGMENT_MODEL_PATH) else None
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+SEGMENT_MODEL_PATH = os.path.join(PROJECT_ROOT, "trained_model", "best_segment.pt")
+
+@st.cache_resource(show_spinner=False)
+def load_segment_model():
+    if os.path.exists(SEGMENT_MODEL_PATH):
+        return YOLO(SEGMENT_MODEL_PATH)
+    return None
 
 
 def run_segment(image_path: str):
@@ -13,6 +20,7 @@ def run_segment(image_path: str):
         mask (H,W) binary (0/1)
         pixel_count (int)
     """
+    segment_model = load_segment_model()
     if segment_model is None:
         return None, 0
 

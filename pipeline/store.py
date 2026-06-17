@@ -4,8 +4,9 @@ import cv2
 import numpy as np
 from datetime import date
 
-OUT_JSON = os.path.join("output", "json")
-OUT_OVERLAY = os.path.join("output", "overlay")
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+OUT_JSON = os.path.join(PROJECT_ROOT, "output", "json")
+OUT_OVERLAY = os.path.join(PROJECT_ROOT, "output", "overlay")
 os.makedirs(OUT_JSON, exist_ok=True)
 os.makedirs(OUT_OVERLAY, exist_ok=True)
 

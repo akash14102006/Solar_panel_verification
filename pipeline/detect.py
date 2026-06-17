@@ -8,9 +8,16 @@ except Exception as e:
     raise
 
 from ultralytics import YOLO
+import streamlit as st
 
-DETECT_MODEL_PATH = os.path.join("trained_model", "best_detect.pt")
-detect_model = YOLO(DETECT_MODEL_PATH) if os.path.exists(DETECT_MODEL_PATH) else None
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+DETECT_MODEL_PATH = os.path.join(PROJECT_ROOT, "trained_model", "best_detect.pt")
+
+@st.cache_resource(show_spinner=False)
+def load_detect_model():
+    if os.path.exists(DETECT_MODEL_PATH):
+        return YOLO(DETECT_MODEL_PATH)
+    return None
 
 
 def run_detect(image_path: str):
@@ -20,6 +27,7 @@ def run_detect(image_path: str):
         confidence (float)
         bbox_list = [[x1,y1,x2,y2]]
     """
+    detect_model = load_detect_model()
     if detect_model is None:
         print("⚠ No detection model found.")
         return False, 0.0, None

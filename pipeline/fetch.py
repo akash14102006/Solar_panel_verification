@@ -1,15 +1,27 @@
 import os
 import requests
 from datetime import date
+try:
+    import streamlit as st
+except ImportError:
+    st = None
 
-API_KEY = "Google-Map-API"   # CHANGE THIS
+API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
+if not API_KEY and st is not None:
+    try:
+        API_KEY = st.secrets["GOOGLE_MAPS_API_KEY"]
+    except Exception:
+        pass
+if not API_KEY:
+    API_KEY = "Google-Map-API"
+
 ZOOM = 20
 SCALE = 2
 IMG_SIZE = 640
 
-OUT_ROOT = os.path.join(os.getcwd(), "output")
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+OUT_ROOT = os.path.join(PROJECT_ROOT, "output")
 os.makedirs(OUT_ROOT, exist_ok=True)
-
 
 def fetch_image(lat: float, lon: float, sample_id: int):
     """

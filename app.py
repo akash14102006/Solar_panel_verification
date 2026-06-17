@@ -5,6 +5,8 @@ from pipeline.pipeline import run
 import cv2
 import numpy as np
 
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
 print("CV2:", cv2.__version__)
 print("NUMPY:", np.__version__)
 
@@ -66,13 +68,15 @@ with right_col:
 
     if run_button:
         with st.spinner("Running AI verification pipeline..."):
-            run(sample_id, lat, lon)
+            try:
+                run(sample_id, lat, lon)
+                st.success("Verification completed successfully.")
+            except Exception as e:
+                st.error(f"Error during verification: {e}")
 
-        st.success("Verification completed successfully.")
-
-        img_path = f"output/{sample_id}_input.png"
-        overlay_path = f"output/overlay/{sample_id}.png"
-        json_path = f"output/json/{sample_id}.json"
+        img_path = os.path.join(PROJECT_ROOT, "output", f"{sample_id}_input.png")
+        overlay_path = os.path.join(PROJECT_ROOT, "output", "overlay", f"{sample_id}.png")
+        json_path = os.path.join(PROJECT_ROOT, "output", "json", f"{sample_id}.json")
 
         # ---------- COMPACT RESULT GRID ----------
         col_img, col_overlay, col_json = st.columns([1, 1, 1])

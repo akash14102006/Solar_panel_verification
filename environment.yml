@@ -3,8 +3,10 @@ dependencies:
   - python=3.10
   - pip
   - pip:
+    - streamlit
     - ultralytics
-    - opencv-python
+    - opencv-python-headless
     - numpy
     - requests
     - torch
+    - torchvision

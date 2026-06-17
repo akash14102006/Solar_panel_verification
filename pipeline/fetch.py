@@ -1,10 +1,16 @@
 import os
 import requests
+import logging
 from datetime import date
+from pathlib import Path
+
 try:
     import streamlit as st
 except ImportError:
     st = None
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
 if not API_KEY and st is not None:
@@ -19,9 +25,9 @@ ZOOM = 20
 SCALE = 2
 IMG_SIZE = 640
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-OUT_ROOT = os.path.join(PROJECT_ROOT, "output")
-os.makedirs(OUT_ROOT, exist_ok=True)
+BASE_DIR = Path(__file__).resolve().parent.parent
+OUT_ROOT = BASE_DIR / "output"
+OUT_ROOT.mkdir(parents=True, exist_ok=True)
 
 def fetch_image(lat: float, lon: float, sample_id: int):
     """
@@ -34,20 +40,21 @@ def fetch_image(lat: float, lon: float, sample_id: int):
         f"&maptype=satellite&key={API_KEY}"
     )
 
-    out_path = os.path.join(OUT_ROOT, f"{sample_id}_input.png")
+    out_path = OUT_ROOT / f"{sample_id}_input.png"
 
     try:
         r = requests.get(url, timeout=30)
     except Exception as e:
-        print("❌ Fetch error:", e)
-        return None
+        logger.error(f"❌ Fetch exception: {e}")
+        raise RuntimeError(f"Failed to connect to Google Maps API: {e}")
 
     if r.status_code != 200:
-        print("❌ Google API error:", r.status_code, r.text[:200])
-        return None
+        error_msg = f"Google API error {r.status_code}: {r.text[:200]}"
+        logger.error(f"❌ {error_msg}")
+        raise RuntimeError(error_msg)
 
     with open(out_path, "wb") as f:
         f.write(r.content)
 
-    print(f"✅ Image saved → {out_path}")
-    return out_path
+    logger.info(f"✅ Image saved → {out_path}")
+    return str(out_path)

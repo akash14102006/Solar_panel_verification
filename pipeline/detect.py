@@ -1,5 +1,6 @@
 import numpy as np
-import os
+import logging
+from pathlib import Path
 try:
     import cv2
     print("OpenCV loaded:", cv2.__version__)
@@ -10,13 +11,18 @@ except Exception as e:
 from ultralytics import YOLO
 import streamlit as st
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-DETECT_MODEL_PATH = os.path.join(PROJECT_ROOT, "trained_model", "best_detect.pt")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+DETECT_MODEL_PATH = BASE_DIR / "trained_model" / "best_detect.pt"
 
 @st.cache_resource(show_spinner=False)
 def load_detect_model():
-    if os.path.exists(DETECT_MODEL_PATH):
-        return YOLO(DETECT_MODEL_PATH)
+    if DETECT_MODEL_PATH.exists():
+        logger.info(f"Loading detect model from {DETECT_MODEL_PATH}")
+        return YOLO(str(DETECT_MODEL_PATH))
+    logger.error(f"Detect model not found at {DETECT_MODEL_PATH}")
     return None
 
 
@@ -29,9 +35,10 @@ def run_detect(image_path: str):
     """
     detect_model = load_detect_model()
     if detect_model is None:
-        print("⚠ No detection model found.")
+        logger.warning("⚠ No detection model found.")
         return False, 0.0, None
 
+    logger.info(f"Running detection on {image_path}")
     results = detect_model(image_path)[0]
     boxes = results.boxes
 

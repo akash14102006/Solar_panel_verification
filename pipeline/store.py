@@ -1,14 +1,18 @@
-import os
 import json
 import cv2
 import numpy as np
+import logging
 from datetime import date
+from pathlib import Path
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-OUT_JSON = os.path.join(PROJECT_ROOT, "output", "json")
-OUT_OVERLAY = os.path.join(PROJECT_ROOT, "output", "overlay")
-os.makedirs(OUT_JSON, exist_ok=True)
-os.makedirs(OUT_OVERLAY, exist_ok=True)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+OUT_JSON = BASE_DIR / "output" / "json"
+OUT_OVERLAY = BASE_DIR / "output" / "overlay"
+OUT_JSON.mkdir(parents=True, exist_ok=True)
+OUT_OVERLAY.mkdir(parents=True, exist_ok=True)
 
 
 def save_json(sample_id, lat, lon, has_solar, conf, sqm, qc, bbox_list, polygon):
@@ -33,14 +37,18 @@ def save_json(sample_id, lat, lon, has_solar, conf, sqm, qc, bbox_list, polygon)
     elif bbox_list:
         data["bbox_or_mask"] = {"type": "bbox", "bbox": bbox_list[0]}
 
-    with open(os.path.join(OUT_JSON, f"{sample_id}.json"), "w") as f:
+    out_path = OUT_JSON / f"{sample_id}.json"
+    with open(out_path, "w") as f:
         json.dump(data, f, indent=4)
 
-    print("💾 Saved JSON.")
+    logger.info(f"💾 Saved JSON to {out_path}")
 
 
 def save_overlay(image_path, mask, bbox_list, polygon, sample_id):
-    img = cv2.imread(image_path)
+    img = cv2.imread(str(image_path))
+    if img is None:
+        logger.error(f"Failed to read image at {image_path}")
+        return
 
     if bbox_list:
         for x1, y1, x2, y2 in bbox_list:
@@ -48,20 +56,14 @@ def save_overlay(image_path, mask, bbox_list, polygon, sample_id):
 
     if mask is not None:
         mask_u8 = (mask * 255).astype(np.uint8)
-
-        # Resize mask to image size
         mask_resized = cv2.resize(mask_u8, (img.shape[1], img.shape[0]))
-
-        # Convert to color heatmap
         colored = cv2.applyColorMap(mask_resized, cv2.COLORMAP_JET)
-
-        # Blend mask + image
         img = cv2.addWeighted(img, 0.7, colored, 0.3, 0)
 
     if polygon:
         pts = np.array(polygon, np.int32).reshape((-1, 1, 2))
         cv2.polylines(img, [pts], True, (255, 255, 255), 2)
 
-    out_path = os.path.join(OUT_OVERLAY, f"{sample_id}.png")
-    cv2.imwrite(out_path, img)
-    print("🖼 Saved overlay.")
+    out_path = OUT_OVERLAY / f"{sample_id}.png"
+    cv2.imwrite(str(out_path), img)
+    logger.info(f"🖼 Saved overlay to {out_path}")

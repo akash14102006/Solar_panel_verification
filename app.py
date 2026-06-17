@@ -1,14 +1,18 @@
 import streamlit as st
 import json
-import os
+from pathlib import Path
 from pipeline.pipeline import run
 import cv2
 import numpy as np
+import logging
 
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-print("CV2:", cv2.__version__)
-print("NUMPY:", np.__version__)
+BASE_DIR = Path(__file__).resolve().parent
+
+logger.info(f"CV2: {cv2.__version__}")
+logger.info(f"NUMPY: {np.__version__}")
 
 # -------------------------------------------------
 # PAGE CONFIG
@@ -73,10 +77,11 @@ with right_col:
                 st.success("Verification completed successfully.")
             except Exception as e:
                 st.error(f"Error during verification: {e}")
+                logger.error(f"Pipeline error: {e}", exc_info=True)
 
-        img_path = os.path.join(PROJECT_ROOT, "output", f"{sample_id}_input.png")
-        overlay_path = os.path.join(PROJECT_ROOT, "output", "overlay", f"{sample_id}.png")
-        json_path = os.path.join(PROJECT_ROOT, "output", "json", f"{sample_id}.json")
+        img_path = BASE_DIR / "output" / f"{sample_id}_input.png"
+        overlay_path = BASE_DIR / "output" / "overlay" / f"{sample_id}.png"
+        json_path = BASE_DIR / "output" / "json" / f"{sample_id}.json"
 
         # ---------- COMPACT RESULT GRID ----------
         col_img, col_overlay, col_json = st.columns([1, 1, 1])
@@ -84,16 +89,16 @@ with right_col:
         # ---- Satellite Image (SMALL) ----
         with col_img:
             st.markdown("### Satellite Image")
-            if os.path.exists(img_path):
-                st.image(img_path, width=250)
+            if img_path.exists():
+                st.image(str(img_path), width=250)
             else:
                 st.warning("Not available")
 
         # ---- Detection Overlay (SMALL) ----
         with col_overlay:
             st.markdown("### Detection Overlay")
-            if os.path.exists(overlay_path):
-                st.image(overlay_path, width=250)
+            if overlay_path.exists():
+                st.image(str(overlay_path), width=250)
             else:
                 st.warning("Not available")
 
@@ -101,7 +106,7 @@ with right_col:
         with col_json:
             st.markdown("### AI Output")
 
-            if os.path.exists(json_path):
+            if json_path.exists():
                 with open(json_path) as f:
                     data = json.load(f)
 

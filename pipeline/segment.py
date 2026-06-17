@@ -1,16 +1,22 @@
-import os
 import numpy as np
 import cv2
+import logging
+from pathlib import Path
 from ultralytics import YOLO
 import streamlit as st
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-SEGMENT_MODEL_PATH = os.path.join(PROJECT_ROOT, "trained_model", "best_segment.pt")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+SEGMENT_MODEL_PATH = BASE_DIR / "trained_model" / "best_segment.pt"
 
 @st.cache_resource(show_spinner=False)
 def load_segment_model():
-    if os.path.exists(SEGMENT_MODEL_PATH):
-        return YOLO(SEGMENT_MODEL_PATH)
+    if SEGMENT_MODEL_PATH.exists():
+        logger.info(f"Loading segment model from {SEGMENT_MODEL_PATH}")
+        return YOLO(str(SEGMENT_MODEL_PATH))
+    logger.error(f"Segment model not found at {SEGMENT_MODEL_PATH}")
     return None
 
 
@@ -22,8 +28,10 @@ def run_segment(image_path: str):
     """
     segment_model = load_segment_model()
     if segment_model is None:
+        logger.warning("⚠ No segment model found.")
         return None, 0
 
+    logger.info(f"Running segmentation on {image_path}")
     results = segment_model(image_path)[0]
     if results.masks is None:
         return None, 0
